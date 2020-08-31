@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+set -o errexit
+set -o nounset
+set -o pipefail
+
+# export VERSION=$GITHUB_REF
+export VERSION="1.0.0"
+
+sed -i "s|\"version\": \"[[:digit:]]*.[[:digit:]]*.[[:digit:]]*\"|\"version\": \"$VERSION\"|" ./package.json
+
+npx oclif-dev pack
