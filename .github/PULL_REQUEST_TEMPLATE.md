@@ -53,4 +53,4 @@
 - :red_circle: I have added tests to cover my changes.
 - :red_circle: All new and existing tests passed.
 
-[CONTRIBUTING_FILE]: https://github.com/fewlinesco/connect/blob/master/CONTRIBUTING.md
+[CONTRIBUTING_FILE]: https://github.com/fewlinesco/guidelines/blob/master/CONTRIBUTING.adoc
