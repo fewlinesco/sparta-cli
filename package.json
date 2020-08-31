@@ -1,0 +1,80 @@
+{
+  "name": "sparta",
+  "description": "Sparta CLI",
+  "version": "0.0.0",
+  "author": "Fewlines",
+  "bin": {
+    "sparta": "./bin/run"
+  },
+  "bugs": "https://github.com/fewlinesco/sparta-cli/issues",
+  "dependencies": {
+    "@oclif/command": "^1",
+    "@oclif/config": "^1",
+    "@oclif/plugin-help": "^3",
+    "@typescript-eslint/eslint-plugin": "^3.7.0",
+    "@typescript-eslint/parser": "^3.7.0",
+    "tslib": "^1"
+  },
+  "devDependencies": {
+    "@fewlines/eslint-config": "^3.0.0",
+    "@oclif/dev-cli": "^1",
+    "@types/jest": "^26.0.10",
+    "eslint": "^7.5.0",
+    "eslint-config-oclif": "^3.1",
+    "eslint-config-oclif-typescript": "^0.1",
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-plugin-import": "^2.22.0",
+    "eslint-plugin-prettier": "^3.1.4",
+    "globby": "^10",
+    "jest": "^26.1.0",
+    "nyc": "^14",
+    "prettier": "^2.0.5",
+    "ts-jest": "^26.1.3",
+    "ts-node": "^8",
+    "typescript": "^3.3"
+  },
+  "engines": {
+    "node": ">=8.0.0"
+  },
+  "eslintConfig": {
+    "env": {
+      "jest": true
+    },
+    "extends": [
+      "oclif",
+      "oclif-typescript",
+      "@fewlines/eslint-config/typescript"
+    ],
+    "rules": {
+      "@typescript-eslint/no-explicit-any": 0
+    }
+  },
+  "files": [
+    "/bin",
+    "/lib",
+    "/npm-shrinkwrap.json",
+    "/oclif.manifest.json"
+  ],
+  "homepage": "https://github.com/fewlinesco/sparta-cli",
+  "keywords": [
+    "oclif"
+  ],
+  "license": "MIT",
+  "main": "lib/index.js",
+  "oclif": {
+    "commands": "./lib/commands",
+    "bin": "sparta",
+    "plugins": [
+      "@oclif/plugin-help"
+    ]
+  },
+  "repository": "fewlinesco/sparta-cli",
+  "scripts": {
+    "postpack": "rm -f oclif.manifest.json",
+    "posttest": "eslint . --ext .ts --config .eslintrc",
+    "prepack": "rm -rf lib && tsc -b && oclif-dev manifest && oclif-dev readme",
+    "test": "echo NO TESTS",
+    "version": "oclif-dev readme && git add README.md"
+  },
+  "types": "lib/index.d.ts"
+}
