@@ -6,7 +6,7 @@
   "bin": {
     "sparta": "./bin/run"
   },
-  "bugs": "https://github.com/fewlines-education/sparta-cli/issues",
+  "bugs": "https://github.com/fewlinesco/sparta-cli/issues",
   "dependencies": {
     "@oclif/command": "^1",
     "@oclif/config": "^1",
@@ -55,7 +55,7 @@
     "/npm-shrinkwrap.json",
     "/oclif.manifest.json"
   ],
-  "homepage": "https://github.com/fewlines-education/sparta-cli",
+  "homepage": "https://github.com/fewlinesco/sparta-cli",
   "keywords": [
     "oclif"
   ],
@@ -68,7 +68,7 @@
       "@oclif/plugin-help"
     ]
   },
-  "repository": "fewlines-education/sparta-cli",
+  "repository": "fewlinesco/sparta-cli",
   "scripts": {
     "postpack": "rm -f oclif.manifest.json",
     "posttest": "eslint . --ext .ts --config .eslintrc",
