@@ -9,7 +9,7 @@ set_tag() {
 }
 
 sudo apt-get update \
-  && sudo apt-get install jq
+  && sudo apt-get install -y jq
 
 curl -s https://api.github.com/repos/tcnksm/ghr/releases/latest | \
     jq -r '.assets[] | select(.browser_download_url | contains("linux_amd64"))  | .browser_download_url' | \
@@ -39,12 +39,15 @@ HTTP_RESPONSE=$(curl --write-out "HTTPSTATUS:%{http_code}" \
 
 HTTP_STATUS=$(echo $HTTP_RESPONSE | tr -d '\n' | sed -e 's/.*HTTPSTATUS://')
 
-if [ $HTTP_STATUS -ne 200 ]; then
+if [ "$HTTP_STATUS" -ne "200" ]
+then
   echo "Release is missing"
   exit 1
 fi
 
-for path in "./dist/sparta-v${TAG}/" do
+echo "Uploading tarballs"
+for path in $(find "./dist/sparta-v${TAG}/" -name *.tar.gz)
+do
   if [[ -d $path || -f $path ]]; then
     ghr -u "${GITHUB_REPOSITORY%/*}" -r "${GITHUB_REPOSITORY#*/}" "${GITHUB_REF#refs/tags/}" "${path}"
   else
