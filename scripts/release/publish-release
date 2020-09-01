@@ -5,8 +5,7 @@ set -o nounset
 set -o pipefail
 
 set_tag() {
-  TAG="1.0.0"
-  # TAG="$(echo ${GITHUB_REF} | grep tags | grep -o "[^/]*$" || true)"
+  TAG="$(echo ${GITHUB_REF} | grep tags | grep -o "[^/]*$" || true)"
 }
 
 sudo apt-get update \
