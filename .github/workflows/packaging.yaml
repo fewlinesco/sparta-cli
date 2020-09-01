@@ -1,9 +1,9 @@
 name: packaging
 
 on:
-  push:
-    tags:
-      - "*"
+  release:
+    types:
+      - created
 
 jobs:
   package:
