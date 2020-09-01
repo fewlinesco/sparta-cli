@@ -1,4 +1,3 @@
-
 {
   "name": "sparta",
   "description": "Sparta CLI",
@@ -12,11 +11,13 @@
     "@oclif/command": "^1",
     "@oclif/config": "^1",
     "@oclif/plugin-help": "^3",
+    "fs-extra": "^9.0.1",
     "tslib": "^1"
   },
   "devDependencies": {
     "@fewlines/eslint-config": "^3.0.0",
     "@oclif/dev-cli": "^1",
+    "@types/fs-extra": "^9.0.1",
     "@types/jest": "^26.0.10",
     "@typescript-eslint/eslint-plugin": "^3.7.0",
     "@typescript-eslint/parser": "^3.7.0",
