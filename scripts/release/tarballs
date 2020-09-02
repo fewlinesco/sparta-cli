@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+set -o errexit
+set -o nounset
+set -o pipefail
+
+set_tag() {
+  TAG="$(echo ${GITHUB_REF} | grep tags | grep -o "[^/]*$" || true)"
+}
+
+set_tag
+
+sed -i "s|\"version\": \"[[:digit:]]*.[[:digit:]]*.[[:digit:]]*\"|\"version\": \"$TAG\"|" ./package.json
+
+npx oclif-dev pack -t linux-x64,darwin-x64
