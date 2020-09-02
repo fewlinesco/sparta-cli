@@ -1,4 +1,5 @@
 export default `
+---
 # Initialize your GitHub repository
 
 ## Create the repository on GitHub
@@ -19,4 +20,6 @@ $ git pull origin master
 \`\`\`
 
 Congratulations! Your exercises directory is now ready to be used.
+
+---
 `;

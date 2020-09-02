@@ -2,17 +2,14 @@ import * as fs from "fs-extra";
 import * as path from "path";
 import simpleGit, { SimpleGit } from "simple-git";
 
-export interface UpdateExercisesRepoCacheInput {
-  configDir: string;
-  options?: {
-    delete?: boolean;
-  };
+export interface UpdateExercisesRepoCacheOptions {
+  delete?: boolean;
 }
 
-export default async function updateExercisesRepoCache({
-  configDir,
-  options = {},
-}: UpdateExercisesRepoCacheInput): Promise<void> {
+export default async function updateExercisesRepoCache(
+  configDir: string,
+  options: UpdateExercisesRepoCacheOptions,
+): Promise<void> {
   const exercicesDir = path.join(configDir, "exercises");
   const git: SimpleGit = simpleGit();
 

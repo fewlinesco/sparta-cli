@@ -31,7 +31,7 @@ export default class Init extends Command {
     cli.action.start(
       emoji.emojify(":robot_face: Preparing the Sparta configuration"),
     );
-    await updateExercisesRepoCache({ configDir, options: { delete: true } });
+    await updateExercisesRepoCache(configDir, { delete: true });
     cli.action.stop();
 
     this.log(emoji.emojify(":rocket: All Good! Follow the instructions now"));
