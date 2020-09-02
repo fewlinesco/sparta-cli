@@ -1,10 +1,24 @@
+import * as fs from "fs-extra";
 import * as path from "path";
+
 export interface Config {
   workspaceDir: string;
   exercicesDir: string;
+  batchID: string;
+  sharedSecret: string;
 }
 
-export default function loadConfig(): Config {
+export interface ConfigInput {
+  batchID: string;
+  sharedSecret: string;
+}
+
+export function loadConfig(configDir: string): Config {
+  const configPath = path.join(configDir, "config.json");
+  fs.ensureFileSync(configPath);
+
+  const writtenConfig: ConfigInput = fs.readJSONSync(configPath);
+
   const homeDir = process.env.HOME;
 
   if (!homeDir) {
@@ -19,7 +33,17 @@ export default function loadConfig(): Config {
   );
 
   return {
+    ...writtenConfig,
     workspaceDir,
     exercicesDir,
   };
+}
+
+export function writeConfig(configDir: string, input: ConfigInput): void {
+  const configPath = path.join(configDir, "config.json");
+
+  fs.ensureFileSync(configPath);
+  fs.writeJsonSync(configPath, input, {
+    spaces: 2,
+  });
 }
