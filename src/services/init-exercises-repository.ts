@@ -10,7 +10,7 @@ export class ExercisesDirectoryExistsError extends SpartaError {
     const message = "Exercises directory already exists";
     const suggestions = [
       `Delete the ${directory} directory if you want to start over`,
-      `Rename the ${directory} (e.g. ${directory}-backup) if you would like to keep your progress`,
+      `Rename the ${directory} directory (e.g. ${directory}-backup) if you want to keep your progress`,
     ];
 
     super(name, message, suggestions);
