@@ -20,7 +20,7 @@ export class ExercisesDirectoryExistsError extends SpartaError {
 export default async function initExercicesRepository(
   config: Config,
 ): Promise<void> {
-  const directory = config.exercicesDir;
+  const directory = config.exercisesDir;
 
   if (fs.existsSync(directory)) {
     throw new ExercisesDirectoryExistsError(directory);

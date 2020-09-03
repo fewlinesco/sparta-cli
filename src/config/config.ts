@@ -1,9 +1,22 @@
 import * as fs from "fs-extra";
 import * as path from "path";
 
+import { SpartaError } from "../services/errors/sparta-error";
+
+export class ConfigFileError extends SpartaError {
+  constructor() {
+    const name = "ConfigFileError";
+    const message = `Config file not initialized`;
+    const suggestions = [`Make sure you ran the 'sparta init' command first`];
+
+    super(name, message, suggestions);
+  }
+}
+
 export interface Config {
   workspaceDir: string;
-  exercicesDir: string;
+  exercisesDir: string;
+  exercisesCacheDir: string;
   batchID: string;
   sharedSecret: string;
 }
@@ -17,7 +30,12 @@ export function loadConfig(configDir: string): Config {
   const configPath = path.join(configDir, "config.json");
   fs.ensureFileSync(configPath);
 
-  const writtenConfig: ConfigInput = fs.readJSONSync(configPath);
+  let writtenConfig: ConfigInput;
+  try {
+    writtenConfig = fs.readJSONSync(configPath);
+  } catch {
+    throw new ConfigFileError();
+  }
 
   const homeDir = process.env.HOME;
 
@@ -26,16 +44,18 @@ export function loadConfig(configDir: string): Config {
   }
 
   const workspaceDir = path.join(homeDir, "Workspace");
-  const exercicesDir = path.join(
+  const exercisesDir = path.join(
     workspaceDir,
     "fewlines-education",
-    "exercices",
+    "exercises",
   );
+  const exercisesCacheDir = path.join(configDir, "exercises");
 
   return {
     ...writtenConfig,
     workspaceDir,
-    exercicesDir,
+    exercisesDir,
+    exercisesCacheDir,
   };
 }
 

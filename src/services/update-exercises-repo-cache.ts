@@ -8,17 +8,22 @@ export interface UpdateExercisesRepoCacheOptions {
 
 export default async function updateExercisesRepoCache(
   configDir: string,
-  options: UpdateExercisesRepoCacheOptions,
+  options: UpdateExercisesRepoCacheOptions = {},
 ): Promise<void> {
+  const githubRepo =
+    "git@github.com:fewlines-education/dev-bootcamp-exercises.git";
   const exercicesDir = path.join(configDir, "exercises");
-  const git: SimpleGit = simpleGit();
+  let git: SimpleGit;
 
   if (options.delete) {
     fs.removeSync(exercicesDir);
   }
 
-  await git.clone(
-    "git@github.com:fewlines-education/dev-bootcamp-exercises.git",
-    exercicesDir,
-  );
+  if (fs.existsSync(exercicesDir)) {
+    git = simpleGit(exercicesDir);
+    await git.pull(githubRepo);
+  } else {
+    git = simpleGit();
+    await git.clone(githubRepo, exercicesDir);
+  }
 }
