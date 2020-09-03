@@ -9,7 +9,7 @@ import updateExercisesRepoCache from "../services/update-exercises-repo-cache";
 import updateDayExercisesDirectory from "../services/update-today-exercises-directory";
 
 export default class Today extends Command {
-  static description = "Downloads the exercises for today";
+  static description = "Downloads the exercises for the current day";
 
   async run(): Promise<void> {
     const configDir = this.config.configDir;

@@ -59,7 +59,7 @@ EXAMPLE
 
 ## `sparta today`
 
-Downloads the exercises for today
+Downloads the exercises for the current day
 
 ```
 USAGE
