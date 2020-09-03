@@ -26,6 +26,7 @@ USAGE
 <!-- commands -->
 * [`sparta help [COMMAND]`](#sparta-help-command)
 * [`sparta init`](#sparta-init)
+* [`sparta today`](#sparta-today)
 
 ## `sparta help [COMMAND]`
 
@@ -54,5 +55,14 @@ USAGE
 
 EXAMPLE
   $ sparta init
+```
+
+## `sparta today`
+
+Downloads the exercises for today
+
+```
+USAGE
+  $ sparta today
 ```
 <!-- commandsstop -->
