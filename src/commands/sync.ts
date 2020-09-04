@@ -26,11 +26,11 @@ export default class Sync extends Command {
     );
     await checkExercisesDirectoryClean(config);
     const exercisesPaths = await fetchPastDaysExercisesPaths(config);
-    const promises = exercisesPaths.map(async (path) => {
-      await updateDayExercisesDirectory(config, path);
-    });
+    const promises = exercisesPaths.map((path) =>
+      updateDayExercisesDirectory(config, path),
+    );
 
-    Promise.resolve(promises);
+    await Promise.all(promises);
     cli.action.stop();
 
     this.log(emoji.emojify(":rocket: All good! Happy hacking!"));
