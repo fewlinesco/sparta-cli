@@ -9,7 +9,7 @@ import updateExercisesRepoCache from "../services/update-exercises-repo-cache";
 import updateDayExercisesDirectory from "../services/update-today-exercises-directory";
 
 export default class Sync extends Command {
-  static description = "Updates all the courses for the past days";
+  static description = "Updates all the exercises for the past days";
 
   async run(): Promise<void> {
     const configDir = this.config.configDir;
