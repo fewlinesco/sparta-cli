@@ -1,5 +1,4 @@
-Sparta CLI
-======
+# Sparta CLI
 
 # Installation
 
@@ -9,7 +8,9 @@ $ yarn install
 ```
 
 # Usage
+
 <!-- usage -->
+
 ```sh-session
 $ npm install -g sparta
 $ sparta COMMAND
@@ -21,13 +22,17 @@ USAGE
   $ sparta COMMAND
 ...
 ```
+
 <!-- usagestop -->
+
 # Commands
+
 <!-- commands -->
-* [`sparta help [COMMAND]`](#sparta-help-command)
-* [`sparta init`](#sparta-init)
-* [`sparta sync`](#sparta-sync)
-* [`sparta today`](#sparta-today)
+
+- [`sparta help [COMMAND]`](#sparta-help-command)
+- [`sparta init`](#sparta-init)
+- [`sparta sync`](#sparta-sync)
+- [`sparta today`](#sparta-today)
 
 ## `sparta help [COMMAND]`
 
@@ -58,6 +63,11 @@ EXAMPLE
   $ sparta init
 ```
 
+There are two flags that are hidden from the help (because we don't want students to use them):
+
+- `--spartaURL="<url>"` will update the URL that will be called when talking to Sparta API.
+- `--force` or `-f` will recreate the exercises repository (deleting the previous folder, beware).
+
 ## `sparta sync`
 
 Updates all the courses for the past days
@@ -75,4 +85,5 @@ Downloads the exercises for the current day
 USAGE
   $ sparta today
 ```
+
 <!-- commandsstop -->
