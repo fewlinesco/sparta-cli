@@ -1,8 +1,9 @@
+import { flags } from "@oclif/command";
 import cli from "cli-ux";
 import * as emoji from "node-emoji";
 
 import Command from "../base";
-import { loadConfig, ConfigInput, writeConfig } from "../config/config";
+import { loadConfig, writeConfig } from "../config/config";
 import initInstuctions from "../instructions/init";
 import checkWorkspace from "../services/check-workspace";
 import initExercicesRepository from "../services/init-exercises-repository";
@@ -14,11 +15,20 @@ export default class Init extends Command {
 
   static examples = ["$ sparta init"];
 
+  static flags = {
+    force: flags.boolean({ char: "f", default: false, hidden: true }),
+    spartaURL: flags.string({
+      hidden: true,
+      default: "https://sparta.fewlines.dev",
+    }),
+  };
+
   async run(): Promise<void> {
     const configDir = this.config.configDir;
     const userInput = await getUserInput();
+    const { flags } = this.parse(Init);
 
-    writeConfig(configDir, userInput);
+    writeConfig(configDir, { ...userInput, spartaURL: flags.spartaURL });
 
     const config = loadConfig(configDir);
 
@@ -26,7 +36,7 @@ export default class Init extends Command {
     checkWorkspace(config);
 
     this.log(emoji.emojify(":robot_face: Initializing exercises repository"));
-    await initExercicesRepository(config);
+    await initExercicesRepository(config, flags.force);
 
     cli.action.start(
       emoji.emojify(":robot_face: Preparing the Sparta configuration"),
@@ -45,7 +55,10 @@ export default class Init extends Command {
   }
 }
 
-async function getUserInput(): Promise<ConfigInput> {
+async function getUserInput(): Promise<{
+  batchID: string;
+  sharedSecret: string;
+}> {
   const batchID = await cli.prompt("What is the ID of your batch ?");
   const sharedSecret = await cli.prompt("Enter the Sparta secret token", {
     type: "hide",

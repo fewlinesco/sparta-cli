@@ -16,8 +16,10 @@ export default async function updateDayExercisesDirectory(
   const todayCurrentPath = path.join(exercisesDir, dayPath, "current");
   const todaySHAPath = path.join(exercisesDir, dayPath, directorySHA);
 
-  fs.ensureDirSync(todaySHAPath);
-  fs.copySync(todayCachePath, todaySHAPath);
-  fs.removeSync(todayCurrentPath);
-  fs.ensureSymlinkSync(todaySHAPath, todayCurrentPath);
+  if (!fs.existsSync(todaySHAPath)) {
+    fs.ensureDirSync(todaySHAPath);
+    fs.copySync(todayCachePath, todaySHAPath);
+    fs.removeSync(todayCurrentPath);
+    fs.ensureSymlinkSync(todaySHAPath, todayCurrentPath);
+  }
 }
