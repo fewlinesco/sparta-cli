@@ -1,4 +1,4 @@
-import Command, { flags } from "@oclif/command";
+import Command from "@oclif/command";
 
 import { SpartaError } from "./services/errors/sparta-error";
 

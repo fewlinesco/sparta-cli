@@ -28,7 +28,11 @@ export default async function fetchTodayExercisesPath(
   let calendar: Calendar;
 
   try {
-    calendar = await fetchCalendar(config.batchID, config.sharedSecret);
+    calendar = await fetchCalendar(
+      config.spartaURL,
+      config.batchID,
+      config.sharedSecret,
+    );
   } catch (error) {
     throw new CalendarFetchError(error.message);
   }

@@ -19,11 +19,13 @@ export interface Config {
   exercisesCacheDir: string;
   batchID: string;
   sharedSecret: string;
+  spartaURL: string;
 }
 
 export interface ConfigInput {
   batchID: string;
   sharedSecret: string;
+  spartaURL: string;
 }
 
 export function loadConfig(configDir: string): Config {
