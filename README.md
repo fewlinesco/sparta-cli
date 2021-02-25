@@ -33,6 +33,7 @@ USAGE
 - [`sparta init`](#sparta-init)
 - [`sparta sync`](#sparta-sync)
 - [`sparta today`](#sparta-today)
+- [`sparta test`](#sparta-test)
 
 ## `sparta help [COMMAND]`
 
@@ -53,11 +54,15 @@ _See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v3.2.0
 
 ## `sparta init`
 
-Initializes the Sparta workspace
+Initializes the Sparta workspace.
 
 ```
 USAGE
   $ sparta init
+
+OPTIONS
+  -b, --batchID=batchID
+  -u, --userID=userID
 
 EXAMPLE
   $ sparta init
@@ -70,7 +75,7 @@ There are two flags that are hidden from the help (because we don't want student
 
 ## `sparta sync`
 
-Updates all the courses for the past days
+Updates all the courses for the past days.
 
 ```
 USAGE
@@ -79,11 +84,21 @@ USAGE
 
 ## `sparta today`
 
-Downloads the exercises for the current day
+Downloads the exercises for the current day.
 
 ```
 USAGE
   $ sparta today
+```
+
+## `sparta test`
+
+Replace `yarn jest` and send the results to Sparta.
+Arguments are sent as-id to `jest`.
+
+```
+USAGE
+  $ sparta test [--runInBand] [test-file]
 ```
 
 <!-- commandsstop -->
