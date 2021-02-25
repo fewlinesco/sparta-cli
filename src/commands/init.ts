@@ -45,11 +45,8 @@ export default class Init extends Command {
     this.log(emoji.emojify(":robot_face: Initializing exercises repository"));
     await initExercicesRepository(config, flags.force);
 
-    cli.action.start(
-      emoji.emojify(":robot_face: Preparing the Sparta configuration"),
-    );
+    this.log(emoji.emojify(":robot_face: Preparing the Sparta configuration"));
     await updateExercisesRepoCache(configDir, { delete: true });
-    cli.action.stop();
 
     this.log(emoji.emojify(":rocket: All Good! Follow the instructions now"));
     this.log(renderInstructions(initInstuctions));
