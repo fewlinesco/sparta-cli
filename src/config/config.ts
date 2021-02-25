@@ -14,16 +14,18 @@ export class ConfigFileError extends SpartaError {
 }
 
 export interface Config {
-  workspaceDir: string;
-  exercisesDir: string;
-  exercisesCacheDir: string;
   batchID: string;
+  exercisesCacheDir: string;
+  exercisesDir: string;
   sharedSecret: string;
   spartaURL: string;
+  userID: string;
+  workspaceDir: string;
 }
 
 export interface ConfigInput {
   batchID: string;
+  userID: string;
   sharedSecret: string;
   spartaURL: string;
 }
