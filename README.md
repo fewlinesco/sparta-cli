@@ -94,7 +94,7 @@ USAGE
 ## `sparta test`
 
 Replace `yarn jest` and send the results to Sparta.
-Arguments are sent as-id to `jest`.
+Arguments are sent as-is to `jest`.
 
 ```
 USAGE
