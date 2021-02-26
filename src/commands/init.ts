@@ -18,15 +18,22 @@ export default class Init extends Command {
   static flags = {
     force: flags.boolean({ char: "f", default: false, hidden: true }),
     spartaURL: flags.string({
+      char: "s",
       hidden: true,
       default: "https://sparta.fewlines.dev",
+    }),
+    batchID: flags.string({
+      char: "b",
+    }),
+    userID: flags.string({
+      char: "u",
     }),
   };
 
   async run(): Promise<void> {
     const configDir = this.config.configDir;
-    const userInput = await getUserInput();
     const { flags } = this.parse(Init);
+    const userInput = await getUserInput(flags);
 
     writeConfig(configDir, { ...userInput, spartaURL: flags.spartaURL });
 
@@ -38,11 +45,8 @@ export default class Init extends Command {
     this.log(emoji.emojify(":robot_face: Initializing exercises repository"));
     await initExercicesRepository(config, flags.force);
 
-    cli.action.start(
-      emoji.emojify(":robot_face: Preparing the Sparta configuration"),
-    );
+    this.log(emoji.emojify(":robot_face: Preparing the Sparta configuration"));
     await updateExercisesRepoCache(configDir, { delete: true });
-    cli.action.stop();
 
     this.log(emoji.emojify(":rocket: All Good! Follow the instructions now"));
     this.log(renderInstructions(initInstuctions));
@@ -55,17 +59,27 @@ export default class Init extends Command {
   }
 }
 
-async function getUserInput(): Promise<{
+async function getUserInput(flags: {
+  batchID?: unknown;
+  userID?: unknown;
+}): Promise<{
   batchID: string;
+  userID: string;
   sharedSecret: string;
 }> {
-  const batchID = await cli.prompt("What is the ID of your batch ?");
+  const batchID = flags.batchID
+    ? flags.batchID
+    : await cli.prompt("What is the ID of your batch?");
+  const userID = flags.userID
+    ? flags.userID
+    : await cli.prompt("What is your user ID?");
   const sharedSecret = await cli.prompt("Enter the Sparta secret token", {
     type: "hide",
   });
 
   return {
     batchID,
+    userID,
     sharedSecret,
   };
 }
