@@ -93,7 +93,7 @@ USAGE
 
 ## `sparta test`
 
-Replace `yarn jest` and send the results to Sparta.
+Replaces `yarn jest` and sends the results to Sparta.
 Arguments are sent as-is to `jest`.
 
 ```
