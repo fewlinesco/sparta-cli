@@ -72,7 +72,7 @@
     "oclif"
   ],
   "license": "MIT",
-  "main": "dist/index.js",
+  "main": "lib/index.js",
   "oclif": {
     "commands": "./lib/commands",
     "bin": "sparta",
