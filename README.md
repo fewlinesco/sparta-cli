@@ -10,30 +10,27 @@ $ yarn install
 # Usage
 
 <!-- usage -->
-
 ```sh-session
 $ npm install -g sparta
 $ sparta COMMAND
 running command...
 $ sparta (-v|--version|version)
-sparta/1.0.0 darwin-x64 node-v14.6.0
+sparta/1.1.0 darwin-x64 node-v14.6.0
 $ sparta --help [COMMAND]
 USAGE
   $ sparta COMMAND
 ...
 ```
-
 <!-- usagestop -->
 
 # Commands
 
 <!-- commands -->
-
-- [`sparta help [COMMAND]`](#sparta-help-command)
-- [`sparta init`](#sparta-init)
-- [`sparta sync`](#sparta-sync)
-- [`sparta today`](#sparta-today)
-- [`sparta test`](#sparta-test)
+* [`sparta help [COMMAND]`](#sparta-help-command)
+* [`sparta init`](#sparta-init)
+* [`sparta sync`](#sparta-sync)
+* [`sparta test`](#sparta-test)
+* [`sparta today`](#sparta-today)
 
 ## `sparta help [COMMAND]`
 
@@ -54,7 +51,7 @@ _See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v3.2.0
 
 ## `sparta init`
 
-Initializes the Sparta workspace.
+Initializes the Sparta workspace
 
 ```
 USAGE
@@ -68,37 +65,38 @@ EXAMPLE
   $ sparta init
 ```
 
-There are two flags that are hidden from the help (because we don't want students to use them):
-
-- `--spartaURL="<url>"` will update the URL that will be called when talking to Sparta API.
-- `--force` or `-f` will recreate the exercises repository (deleting the previous folder, beware).
+_See code: [src/commands/init.ts](https://github.com/fewlinesco/sparta-cli/blob/v1.1.0/src/commands/init.ts)_
 
 ## `sparta sync`
 
-Updates all the courses for the past days.
+Updates all the exercises for the past days
 
 ```
 USAGE
   $ sparta sync
 ```
 
+_See code: [src/commands/sync.ts](https://github.com/fewlinesco/sparta-cli/blob/v1.1.0/src/commands/sync.ts)_
+
+## `sparta test`
+
+Launch the tests for an exercise
+
+```
+USAGE
+  $ sparta test
+```
+
+_See code: [src/commands/test.ts](https://github.com/fewlinesco/sparta-cli/blob/v1.1.0/src/commands/test.ts)_
+
 ## `sparta today`
 
-Downloads the exercises for the current day.
+Downloads the exercises for the current day
 
 ```
 USAGE
   $ sparta today
 ```
 
-## `sparta test`
-
-Replaces `yarn jest` and sends the results to Sparta.
-Arguments are sent as-is to `jest`.
-
-```
-USAGE
-  $ sparta test [--runInBand] [test-file]
-```
-
+_See code: [src/commands/today.ts](https://github.com/fewlinesco/sparta-cli/blob/v1.1.0/src/commands/today.ts)_
 <!-- commandsstop -->

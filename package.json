@@ -1,7 +1,7 @@
 {
   "name": "sparta",
   "description": "Sparta CLI",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "author": "Fewlines",
   "bin": {
     "sparta": "./bin/run"
@@ -10,10 +10,11 @@
   "dependencies": {
     "@oclif/command": "^1",
     "@oclif/config": "^1",
+    "@oclif/dev-cli": "^1",
     "@oclif/plugin-help": "^3",
     "fs-extra": "^9.0.1",
-    "marked": "^1.1.1",
     "marked-terminal": "^4.1.0",
+    "marked": "^1.1.1",
     "node-emoji": "^1.10.0",
     "node-fetch": "^2.6.0",
     "simple-git": "^2.20.1",
@@ -21,7 +22,6 @@
   },
   "devDependencies": {
     "@fewlines/eslint-config": "^3.0.0",
-    "@oclif/dev-cli": "^1",
     "@types/fs-extra": "9.0.1",
     "@types/jest": "^26.0.10",
     "@types/marked": "1.1.0",
@@ -74,7 +74,7 @@
   "license": "MIT",
   "main": "dist/index.js",
   "oclif": {
-    "commands": "./dist/commands",
+    "commands": "./lib/commands",
     "bin": "sparta",
     "plugins": [
       "@oclif/plugin-help"
@@ -82,7 +82,7 @@
   },
   "repository": "fewlinesco/sparta-cli",
   "scripts": {
-    "postpack": "rm -f oclif.manifest.json",
+    "postpack": "rm -f oclif.manifest.json tsconfig.tsbuildinfo",
     "posttest": "eslint . --ext .ts",
     "prepack": "rm -rf dist && tsc -b && oclif-dev manifest && oclif-dev readme",
     "test": "echo NO TESTS",
