@@ -27,7 +27,9 @@ export default async function fetchPastDaysExercisesPaths(
     throw new CalendarFetchError(error.message);
   }
 
-  const paths = findPastDaysExercisesPaths(calendar);
+  const paths = findPastDaysExercisesPaths(calendar).filter(
+    (path) => path !== "",
+  );
 
   return paths;
 }
