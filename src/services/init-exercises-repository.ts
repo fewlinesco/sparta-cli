@@ -34,6 +34,7 @@ export default async function initExercicesRepository(
   const gitOptions: SimpleGitOptions = {
     baseDir: directory,
     binary: "git",
+    config: [],
     maxConcurrentProcesses: 6,
   };
 

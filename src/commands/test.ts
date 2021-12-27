@@ -43,7 +43,7 @@ const exec = (
 
     child.on("close", function (code) {
       if (!resolved) {
-        return resolve([code, output]);
+        return resolve([code ?? 1, output]);
       }
     });
   });
@@ -87,6 +87,7 @@ export default class Test extends Command {
     if (!output.includes("No tests found")) {
       sendTestResults(code, output, totalNumberOfTests, config);
     }
+
     cli.action.stop();
   }
 }

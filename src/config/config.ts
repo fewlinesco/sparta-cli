@@ -3,7 +3,7 @@ import * as path from "path";
 
 import { SpartaError } from "../services/errors/sparta-error";
 
-export class ConfigFileError extends SpartaError {
+class ConfigFileError extends SpartaError {
   constructor() {
     const name = "ConfigFileError";
     const message = `Config file not initialized`;
@@ -13,7 +13,7 @@ export class ConfigFileError extends SpartaError {
   }
 }
 
-export interface Config {
+interface Config {
   batchID: string;
   exercisesCacheDir: string;
   exercisesDir: string;
@@ -23,14 +23,14 @@ export interface Config {
   workspaceDir: string;
 }
 
-export interface ConfigInput {
+interface ConfigInput {
   batchID: string;
   userID: string;
   sharedSecret: string;
   spartaURL: string;
 }
 
-export function loadConfig(configDir: string): Config {
+function loadConfig(configDir: string): Config {
   const configPath = path.join(configDir, "config.json");
   fs.ensureFileSync(configPath);
 
@@ -63,7 +63,7 @@ export function loadConfig(configDir: string): Config {
   };
 }
 
-export function writeConfig(configDir: string, input: ConfigInput): void {
+function writeConfig(configDir: string, input: ConfigInput): void {
   const configPath = path.join(configDir, "config.json");
 
   fs.ensureFileSync(configPath);
@@ -71,3 +71,5 @@ export function writeConfig(configDir: string, input: ConfigInput): void {
     spaces: 2,
   });
 }
+
+export { ConfigFileError, Config, ConfigInput, writeConfig, loadConfig };

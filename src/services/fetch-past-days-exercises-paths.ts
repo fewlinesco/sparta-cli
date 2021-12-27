@@ -3,7 +3,7 @@ import Calendar from "../models/calendar";
 import fetchCalendar from "../utils/fetch-calendar";
 import { SpartaError } from "./errors/sparta-error";
 
-export class CalendarFetchError extends SpartaError {
+class CalendarFetchError extends SpartaError {
   constructor(message: string) {
     const name = "CalendarFetchError";
     const suggestions = ["Call a teacher to help solve the issue"];
@@ -12,9 +12,7 @@ export class CalendarFetchError extends SpartaError {
   }
 }
 
-export default async function fetchPastDaysExercisesPaths(
-  config: Config,
-): Promise<string[]> {
+async function fetchPastDaysExercisesPaths(config: Config): Promise<string[]> {
   let calendar: Calendar;
 
   try {
@@ -23,7 +21,7 @@ export default async function fetchPastDaysExercisesPaths(
       config.batchID,
       config.sharedSecret,
     );
-  } catch (error) {
+  } catch (error: any) {
     throw new CalendarFetchError(error.message);
   }
 
@@ -40,3 +38,6 @@ function findPastDaysExercisesPaths(calendar: Calendar): string[] {
 
   return pastDays.map((day) => day.path);
 }
+
+export default fetchPastDaysExercisesPaths;
+export { CalendarFetchError };

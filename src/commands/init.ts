@@ -10,7 +10,7 @@ import initExercicesRepository from "../services/init-exercises-repository";
 import renderInstructions from "../services/render-instructions";
 import updateExercisesRepoCache from "../services/update-exercises-repo-cache";
 
-export default class Init extends Command {
+class Init extends Command {
   static description = "Initializes the Sparta workspace";
 
   static examples = ["$ sparta init"];
@@ -20,7 +20,7 @@ export default class Init extends Command {
     spartaURL: flags.string({
       char: "s",
       hidden: true,
-      default: "https://sparta.fewlines.dev",
+      default: "https://sparta-api.fewlines.tech",
     }),
     batchID: flags.string({
       char: "b",
@@ -44,6 +44,11 @@ export default class Init extends Command {
 
     this.log(emoji.emojify(":robot_face: Initializing exercises repository"));
     await initExercicesRepository(config, flags.force);
+    this.log(
+      emoji.emojify(
+        `:robot_face: exercises repository created at ${config.exercisesDir}`,
+      ),
+    );
 
     this.log(emoji.emojify(":robot_face: Preparing the Sparta configuration"));
     await updateExercisesRepoCache(configDir, { delete: true });
@@ -83,3 +88,5 @@ async function getUserInput(flags: {
     sharedSecret,
   };
 }
+
+export default Init;

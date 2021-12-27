@@ -24,7 +24,8 @@ export default async function sendTestResults(
   const currentRelativePath = process.cwd().replace(currentGitRepo, ".");
   // eslint-disable-next-line no-control-regex
   const cleanOutput = testsResultOutput.replace(/\u001b\[(\d+)(m|K|G)/gm, "");
-  const testsRegex = /Tests:\s+((?<failed>\d+) failed, )?((?<skipped>\d+) skipped, )?((?<passed>\d+) passed, )?(?<total>\d+) total/gm;
+  const testsRegex =
+    /Tests:\s+((?<failed>\d+) failed, )?((?<skipped>\d+) skipped, )?((?<passed>\d+) passed, )?(?<total>\d+) total/gm;
   const testResults = testsRegex.exec(cleanOutput)?.groups;
   const data: TestResultData = {
     code: testsResultCode,
