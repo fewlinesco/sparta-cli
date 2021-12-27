@@ -55,6 +55,7 @@
     "extends": [
       "oclif",
       "oclif-typescript",
+      "@fewlines/eslint-config/node",
       "@fewlines/eslint-config/typescript"
     ],
     "rules": {
