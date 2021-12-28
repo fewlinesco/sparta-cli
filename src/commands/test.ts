@@ -8,23 +8,28 @@ import sendTestResults from "../services/send-test-results";
 const exec = (
   command: string,
   directory: string,
+  propagateOutput = true,
 ): Promise<[number, string]> => {
   const [program, ...args] = command.split(" ");
   let resolved = false;
   return new Promise((resolve) => {
-    process.env.FORCE_COLOR = "true";
+    process.env.FORCE_COLOR = propagateOutput ? "true" : "false";
     const child = spawn(program, args, { cwd: directory, env: process.env });
 
     let output = "";
     child.stdout.on("data", function (data) {
       const strData = data.toString();
       output += strData;
-      process.stdout.write(strData);
+      if (propagateOutput) {
+        process.stdout.write(strData);
+      }
     });
     child.stderr.on("data", function (data) {
       const strData = data.toString();
-      output += strData;
-      process.stderr.write(strData);
+      if (propagateOutput) {
+        output += strData; // We don't need stderr when we don't want to give the output to students
+        process.stderr.write(strData);
+      }
 
       if (
         strData.includes(
@@ -38,7 +43,7 @@ const exec = (
 
     child.on("close", function (code) {
       if (!resolved) {
-        return resolve([code, output]);
+        return resolve([code ?? 1, output]);
       }
     });
   });
@@ -61,12 +66,26 @@ export default class Test extends Command {
       .join(" ");
 
     const [code, output] = await exec(
-      "yarn jest " + supplementalArguments,
+      "./node_modules/.bin/jest " + supplementalArguments,
       ".",
     );
 
+    let totalNumberOfTests;
+    try {
+      const [, outputCounter] = await exec(
+        "./node_modules/.bin/jest --color=false --colors=false --testNamePattern=APatternThatWillNeverMatchInOrderToOnlyListTotalTestNumber --json",
+        ".",
+        false,
+      );
+
+      const allTestsData = JSON.parse(outputCounter);
+      totalNumberOfTests = allTestsData.numTotalTests;
+    } catch (error) {
+      totalNumberOfTests = -1;
+    }
+
     if (!output.includes("No tests found")) {
-      sendTestResults(code, output, config);
+      sendTestResults(code, output, totalNumberOfTests, config);
     }
 
     cli.action.stop();

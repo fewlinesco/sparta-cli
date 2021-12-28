@@ -3,7 +3,7 @@ import Calendar from "../models/calendar";
 import fetchCalendar from "../utils/fetch-calendar";
 import { SpartaError } from "./errors/sparta-error";
 
-export class CalendarFetchError extends SpartaError {
+class CalendarFetchError extends SpartaError {
   constructor(message: string) {
     const name = "CalendarFetchError";
     const suggestions = ["Call a teacher to help solve the issue"];
@@ -12,7 +12,7 @@ export class CalendarFetchError extends SpartaError {
   }
 }
 
-export class DayExercisesMissingError extends SpartaError {
+class DayExercisesMissingError extends SpartaError {
   constructor() {
     const name = "DayExercisesMissingError";
     const message = "No exercises found for today";
@@ -22,9 +22,7 @@ export class DayExercisesMissingError extends SpartaError {
   }
 }
 
-export default async function fetchTodayExercisesPath(
-  config: Config,
-): Promise<string> {
+async function fetchTodayExercisesPath(config: Config): Promise<string> {
   let calendar: Calendar;
 
   try {
@@ -34,7 +32,11 @@ export default async function fetchTodayExercisesPath(
       config.sharedSecret,
     );
   } catch (error) {
-    throw new CalendarFetchError(error.message);
+    if (error instanceof Error) {
+      throw new CalendarFetchError(error.message);
+    }
+
+    throw error;
   }
 
   const path = findTodayExercisesPath(calendar);
@@ -52,3 +54,6 @@ function findTodayExercisesPath(calendar: Calendar): string | undefined {
 
   return exercises.find((day) => day.date === today)?.path;
 }
+
+export default fetchTodayExercisesPath;
+export { CalendarFetchError, DayExercisesMissingError };

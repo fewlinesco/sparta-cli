@@ -13,7 +13,8 @@ type TestResultData = {
 
 export default async function sendTestResults(
   testsResultCode: number,
-  testsResultOupput: string,
+  testsResultOutput: string,
+  totalNumberOfTests: number,
   config: Config,
 ): Promise<void> {
   const { sharedSecret, spartaURL, userID } = config;
@@ -22,8 +23,9 @@ export default async function sendTestResults(
   const currentGitRepo = (await git.raw("rev-parse", "--show-toplevel")).trim();
   const currentRelativePath = process.cwd().replace(currentGitRepo, ".");
   // eslint-disable-next-line no-control-regex
-  const cleanOutput = testsResultOupput.replace(/\u001b\[(\d+)(m|K|G)/gm, "");
-  const testsRegex = /Tests:\s+((?<failed>\d+) failed, )?((?<passed>\d+) passed, )?(?<total>\d+) total/gm;
+  const cleanOutput = testsResultOutput.replace(/\u001b\[(\d+)(m|K|G)/gm, "");
+  const testsRegex =
+    /Tests:\s+((?<failed>\d+) failed, )?((?<skipped>\d+) skipped, )?((?<passed>\d+) passed, )?(?<total>\d+) total/gm;
   const testResults = testsRegex.exec(cleanOutput)?.groups;
   const data: TestResultData = {
     code: testsResultCode,
@@ -37,6 +39,11 @@ export default async function sendTestResults(
     data.passed = parseFloat(testResults.passed) || 0;
     data.failed = parseFloat(testResults.failed) || 0;
   }
+
+  if (totalNumberOfTests > data.total) {
+    data.total = totalNumberOfTests;
+  }
+
   try {
     await fetch(`${spartaURL}/cli/test-results/${userID}`, {
       body: JSON.stringify(data),

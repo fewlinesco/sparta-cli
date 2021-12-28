@@ -26,9 +26,9 @@ export default class Sync extends Command {
     );
     await checkExercisesDirectoryClean(config);
     const exercisesPaths = await fetchPastDaysExercisesPaths(config);
-    const promises = exercisesPaths.map((path) =>
-      updateDayExercisesDirectory(config, path),
-    );
+    const promises = exercisesPaths
+      .filter(Boolean)
+      .map((path) => updateDayExercisesDirectory(config, path));
 
     await Promise.all(promises);
     cli.action.stop();

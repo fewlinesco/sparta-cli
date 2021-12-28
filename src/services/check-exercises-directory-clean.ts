@@ -4,7 +4,7 @@ import simpleGit from "simple-git";
 import { Config } from "../config/config";
 import { SpartaError } from "./errors/sparta-error";
 
-export class ExercisesDirectoryNotCleanError extends SpartaError {
+class ExercisesDirectoryNotCleanError extends SpartaError {
   constructor() {
     const name = "ExercisesDirectoryNotCleanError";
     const message = "Exercises directory is not in a clean state.";
@@ -16,7 +16,7 @@ export class ExercisesDirectoryNotCleanError extends SpartaError {
   }
 }
 
-export class ExercisesDirectoryMissingError extends SpartaError {
+class ExercisesDirectoryMissingError extends SpartaError {
   constructor() {
     const name = "ExercisesDirectoryMissingError";
     const message = "Exercises directory is missing.";
@@ -26,7 +26,7 @@ export class ExercisesDirectoryMissingError extends SpartaError {
   }
 }
 
-export default async function checkExercisesDirectoryClean({
+async function checkExercisesDirectoryClean({
   exercisesDir,
 }: Config): Promise<void> {
   if (!fs.existsSync(exercisesDir)) {
@@ -40,3 +40,6 @@ export default async function checkExercisesDirectoryClean({
     throw new ExercisesDirectoryNotCleanError();
   }
 }
+
+export default checkExercisesDirectoryClean;
+export { ExercisesDirectoryNotCleanError, ExercisesDirectoryMissingError };
