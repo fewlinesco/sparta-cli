@@ -21,8 +21,12 @@ async function fetchPastDaysExercisesPaths(config: Config): Promise<string[]> {
       config.batchID,
       config.sharedSecret,
     );
-  } catch (error: any) {
-    throw new CalendarFetchError(error.message);
+  } catch (error) {
+    if (error instanceof Error) {
+      throw new CalendarFetchError(error.message);
+    }
+
+    throw error;
   }
 
   const paths = findPastDaysExercisesPaths(calendar);

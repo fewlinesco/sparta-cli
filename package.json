@@ -1,7 +1,7 @@
 {
   "name": "sparta",
   "description": "Sparta CLI",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "author": "Fewlines",
   "bin": {
     "sparta": "./bin/run"
